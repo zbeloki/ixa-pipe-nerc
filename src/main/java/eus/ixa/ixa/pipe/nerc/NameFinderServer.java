@@ -149,9 +149,13 @@ public class NameFinderServer {
    * @param kafToString the string to be processed
    * @throws IOException if io error
    */
-  private void sendDataToClient(BufferedWriter outToClient, String kafToString) throws IOException {
-    outToClient.write(kafToString);
-    outToClient.close();
+  private void sendDataToClient(BufferedWriter outToClient, String kafToString) {
+      try {
+	  outToClient.write(kafToString);
+	  outToClient.close();
+      } catch (IOException e) {
+	  System.err.println("-> Could not connect to the client.");
+      }
   }
   
   /**
